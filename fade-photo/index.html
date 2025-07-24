@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>スクロールでフェードイン</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .photo {
+      display: block;
+      width: 90%;
+      max-width: 600px;
+      margin: 100px auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .photo.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <img src="img1.jpg" alt="写真1" class="photo" />
+  <img src="img2.jpg" alt="写真2" class="photo" />
+  <img src="img3.jpg" alt="写真3" class="photo" />
+
+  <script>
+    const photos = document.querySelectorAll('.photo');
+
+    window.addEventListener('scroll', () => {
+      photos.forEach(photo => {
+        const rect = photo.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight * 0.8) {
+          photo.classList.add('show');
+        }
+      });
+    });
+
+    // ページロード時にも一度判定して表示
+    window.addEventListener('load', () => {
+      photos.forEach(photo => {
+        const rect = photo.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (rect.top < windowHeight * 0.8) {
+          photo.classList.add('show');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
